@@ -1,0 +1,47 @@
+El informe es una aproximación de la evolución e incrementos poblacionales en el periodo 1970-2022. Aproximación en los años registrados durante este periodo. 
+👉 Puedes ver el INFORME POWER BI: https://app.powerbi.com/view?r=eyJrIjoiYmQxM2FhNGQtY2IyMi00YTIxLWE3ZjUtYWNmZWM1NjE3ZjQzIiwidCI6ImM4NDZlZWU0LWNkY2QtNDcxNy04OWQ1LTExOWRkZGY1NzAzZiIsImMiOjl9&embedImagePlaceholder=true
+**Fuente de Datos de Informe:**
+Los datos utilizados en este informe fueron obtenidos de la Comunidad Kaggle, basados en el conjunto de datos de “World Population Review”: word_population.csv Data Explorer Versión 4., que pueden encontrarse en el siguiente enlace web 'https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset'. 
+**Pasos para realización del Informe**
+**Resumen ELT** en Power Query:
+1-Importación y duplicación de la tabla,  primera para que contenga poblaciones en periodos y segunda para crear una tabla de países
+2-Pasos tabla Población: promoción encabezados; cambio de tipos values population unpivoted columns values population; split column to leave only year without population; cambio tipo de dato tras split y renombrar columnas; quitar columnas; nueva columna tipo fecha para posterior relación de las tablas.
+3-Pasos tabla Países: promoción encabezados; eliminar duplicados países; quitar columnas
+4-Creación de tabla calendario que evite saltos desproporcionados en la visualización de periodos de tiempos
+**Creación y ajustes del módelo semántico:** Marcar tabla calendario como tabla de fechas y elección de columnas; Relación entre tabla calendario y población y Relación entre países y población; Categorizar países y continentes como tales en las herramientas de columnas.
+**Medidas Dax**
+1- Medida básica para Agregaciones de países y continentes: Poblacion = SUM(Poblacion[poblacion])
+2-Medida para agregaciones y sumas por periodos/años:
+ Población XXXX= CALCULATE(
+    [Poblacion],
+    FILTER(ALL(Calendario),Calendario[Year]=XXXX)
+3-Medida de incrementos/decrementos poblacionales:
+Crec An XXXX-XXXY = DIVIDE(
+DIVIDE('Medidas Poblacion'[Población XXXX]-'Medidas Poblacion'[Población XXXY], 'Medidas Poblacion'[Población XXXX],1)
+,"NUMERO DE AÑOS DEL PERIODO",1)
+4-Títulos Interactivos: 
+Título Principal: 
+TITULO = 
+VAR FiltroCont = 
+    IF(
+        HASONEVALUE('Países'[Continent]), 
+        SELECTEDVALUE('Países'[Continent]), 
+        CONCATENATEX(VALUES('Países'[Continent]), 'Países'[Continent], ";  ")
+    )
+VAR FiltroPer = 
+    IF(
+        HASONEVALUE(world_population[Periodos]), 
+        SELECTEDVALUE(world_population[Periodos]), 
+        CONCATENATEX(VALUES(world_population[Periodos]), world_population[Periodos], ", ")
+    )
+RETURN
+"Población mundial. " &
+"  CONTINENTES: " & FiltroCont &
+"  PERIODOS : " & FiltroPer
+*** Los demás títulos de las visualizaciones son similares al anterior****
+**Visualizaciones**: 
+1-Segmentadores por continentes y periodos
+2-Clustered Bar Chart para medición de los incrementos
+3-Map para vista de población y periodos de crecimiento sobre mapa mundial seleccionable por segmentadores
+4-Line Chart para vista sobre gráfico de líneas igualmente segmentable
+4-Botones para vista ampliable y para Reset
