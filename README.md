@@ -1,1 +1,2 @@
 👉 Puedes ver el INFORME POWER BI: https://app.powerbi.com/view?r=eyJrIjoiYmQxM2FhNGQtY2IyMi00YTIxLWE3ZjUtYWNmZWM1NjE3ZjQzIiwidCI6ImM4NDZlZWU0LWNkY2QtNDcxNy04OWQ1LTExOWRkZGY1NzAzZiIsImMiOjl9&embedImagePlaceholder=true
+<iframe title="Poblacion Mundial Estudio" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiYmQxM2FhNGQtY2IyMi00YTIxLWE3ZjUtYWNmZWM1NjE3ZjQzIiwidCI6ImM4NDZlZWU0LWNkY2QtNDcxNy04OWQ1LTExOWRkZGY1NzAzZiIsImMiOjl9&embedImagePlaceholder=true" frameborder="0" allowFullScreen="true"></iframe>
